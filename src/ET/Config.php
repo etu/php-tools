@@ -27,12 +27,10 @@ class Config
         //Exact matching of domain name will have priority and ignore all fuzzy matching
         if (isset($config[$visitDomain])) {
             foreach ($config[$visitDomain] as $key => $value) {
-                if (!is_array($value)) {
-                    $this->config[$key] = $value;
+                if (is_array($value)) {
+                    $this->config[$key] = array_merge($this->config[$key], $value);
                 } else {
-                    foreach ($value as $key2 => $value2) {
-                        $this->config[$key][$key2] = $value2;
-                    }
+                    $this->config[$key] = $value;
                 }
             }
         } else {
@@ -40,12 +38,10 @@ class Config
             foreach ($config as $domain => $contents) {
                 if (fnmatch($domain, $visitDomain)) {
                     foreach ($contents as $key => $value) {
-                        if (!is_array($value)) {
-                            $this->config[$key] = $value;
+                        if (is_array($value)) {
+                            $this->config[$key] = array_merge($this->config[$key], $value);
                         } else {
-                            foreach ($value as $key2 => $value2) {
-                                $this->config[$key][$key2] = $value2;
-                            }
+                            $this->config[$key] = $value;
                         }
                     }
                 }
