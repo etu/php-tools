@@ -1,5 +1,6 @@
 <?php
+namespace ET;
 
-class ConfigException extends Exception
+class ConfigException extends \Exception
 {
 }
