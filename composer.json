@@ -10,5 +10,17 @@
             "url": "https://github.com/203webgroup/phockito.git",
             "type": "git"
         }
-    ]
+    ],
+
+    "autoload": {
+        "psr-4": {
+            "ET\\": "src/ET"
+        }
+    },
+
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\ET\\": "tests/unit/src/ET"
+        }
+    }
 }
