@@ -39,38 +39,21 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldLoadConfig()
+    public function shouldGetDefaultRecursive()
     {
         // Fixture
-        $target = new Config($this->goodConfig, 'example.com');
+        $target = new Config($this->goodConfig, 'test.example.net');
 
         // Test
-        $actual = $target->dumpConfig();
-
-        // Assert
-        $this->assertTrue(is_object($actual));
-    }
-
-    /**
-     * @test
-     */
-    public function shouldGiveDefaultConfig()
-    {
-        // Fixture
-        $target = new Config($this->goodConfig, 'example.nu');
-
-        // Test
-        $actual = $target->dumpConfig();
+        $actual = $target->db;
 
         // Assert
         $this->assertEquals(
             (object) [
-                'db' => (object) [
-                    'hostname' => 'localhost',
-                    'username' => 'username',
-                    'password' => 'password',
-                    'database' => 'database'
-                ]
+                'hostname' => 'localhost',
+                'username' => 'username',
+                'password' => 'password',
+                'database' => 'database'
             ],
             $actual
         );
@@ -79,24 +62,36 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldGiveExactMatchingConfig()
+    public function shouldGetExactMatchNonRecursive()
     {
         // Fixture
         $target = new Config($this->goodConfig, 'example.com');
 
         // Test
-        $actual = $target->dumpConfig();
+        $actual = $target->theme;
+
+        // Assert
+        $this->assertEquals('default', $actual);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldGetExactMatchRecursive()
+    {
+        // Fixture
+        $target = new Config($this->goodConfig, 'example.com');
+
+        // Test
+        $actual = $target->db;
 
         // Assert
         $this->assertEquals(
             (object) [
-                'db' => (object) [
-                    'hostname' => 'localhost',
-                    'username' => 'example',
-                    'password' => 'password',
-                    'database' => 'database'
-                ],
-                'theme' => 'default'
+                'hostname' => 'localhost',
+                'username' => 'example',
+                'password' => 'password',
+                'database' => 'database'
             ],
             $actual
         );
@@ -105,24 +100,36 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldGiveFuzzyMatchingConfig()
+    public function shouldGetFuzzyMatchNonRecursive()
     {
         // Fixture
         $target = new Config($this->goodConfig, 'fuzzy.example.com');
 
         // Test
-        $actual = $target->dumpConfig();
+        $actual = $target->theme;
+
+        // Assert
+        $this->assertEquals('fuzzy', $actual);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldGetFuzzyMatchRecursive()
+    {
+        // Fixture
+        $target = new Config($this->goodConfig, 'fuzzy.example.com');
+
+        // Test
+        $actual = $target->db;
 
         // Assert
         $this->assertEquals(
             (object) [
-                'db' => (object) [
-                    'hostname' => 'fuzzyMatching',
-                    'username' => 'username',
-                    'password' => 'password',
-                    'database' => 'database'
-                ],
-                'theme' => 'fuzzy'
+                'hostname' => 'fuzzyMatching',
+                'username' => 'username',
+                'password' => 'password',
+                'database' => 'database'
             ],
             $actual
         );

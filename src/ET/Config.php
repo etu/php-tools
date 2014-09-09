@@ -55,8 +55,8 @@ class Config
         }
     }
 
-    public function dumpConfig()
+    public function __get($key)
     {
-        return $this->config;
+        return $this->config->$key;
     }
 }
