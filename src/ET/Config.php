@@ -7,7 +7,7 @@ class Config
 
     public function __construct($configFile, $visitDomain)
     {
-        // Config not  found at all
+        // Config not found at all
         if (!file_exists($configFile)) {
             throw new ConfigException('Configruation file not found: '.$configFile);
         }
@@ -26,8 +26,14 @@ class Config
 
         //Exact matching of domain name will have priority and ignore all fuzzy matching
         if (isset($config[$visitDomain])) {
-            foreach ($contents as $key => $value) {
-                $this->config[$key] = $value;
+            foreach ($config[$visitDomain] as $key => $value) {
+                if (!is_array($value)) {
+                    $this->config[$key] = $value;
+                } else {
+                    foreach ($value as $key2 => $value2) {
+                        $this->config[$key][$key2] = $value2;
+                    }
+                }
             }
         } else {
             // Fuzzy match domain name with wildcards and run to the end of the array
@@ -45,5 +51,10 @@ class Config
                 }
             }
         }
+    }
+
+    public function dumpConfig()
+    {
+        return $this->config;
     }
 }
