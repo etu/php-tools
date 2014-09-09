@@ -48,7 +48,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $actual = $target->dumpConfig();
 
         // Assert
-        $this->assertTrue(is_array($actual));
+        $this->assertTrue(is_object($actual));
     }
 
     /**
@@ -64,8 +64,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
         // Assert
         $this->assertEquals(
-            [
-                'db' => [
+            (object) [
+                'db' => (object) [
                     'hostname' => 'localhost',
                     'username' => 'username',
                     'password' => 'password',
@@ -89,8 +89,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
         // Assert
         $this->assertEquals(
-            [
-                'db' => [
+            (object) [
+                'db' => (object) [
                     'hostname' => 'localhost',
                     'username' => 'example',
                     'password' => 'password',
@@ -115,8 +115,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
         // Assert
         $this->assertEquals(
-            [
-                'db' => [
+            (object) [
+                'db' => (object) [
                     'hostname' => 'fuzzyMatching',
                     'username' => 'username',
                     'password' => 'password',

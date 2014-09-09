@@ -21,16 +21,16 @@ class Config
         }
 
         // Set default-values and remove it from the list
-        $this->config = $config['@'];
+        $this->config = (object) $config['@'];
         unset($config['@']);
 
         //Exact matching of domain name will have priority and ignore all fuzzy matching
         if (isset($config[$visitDomain])) {
             foreach ($config[$visitDomain] as $key => $value) {
                 if (is_array($value)) {
-                    $this->config[$key] = array_merge($this->config[$key], $value);
+                    $this->config->$key = (object) array_merge($this->config->$key, $value);
                 } else {
-                    $this->config[$key] = $value;
+                    $this->config->$key = $value;
                 }
             }
         } else {
@@ -39,12 +39,18 @@ class Config
                 if (fnmatch($domain, $visitDomain)) {
                     foreach ($contents as $key => $value) {
                         if (is_array($value)) {
-                            $this->config[$key] = array_merge($this->config[$key], $value);
+                            $this->config->$key = (object) array_merge($this->config->$key, $value);
                         } else {
-                            $this->config[$key] = $value;
+                            $this->config->$key = $value;
                         }
                     }
                 }
+            }
+        }
+
+        foreach ($this->config as $key => $value) {
+            if (is_array($value)) {
+                $this->config->$key = (object) $value;
             }
         }
     }
