@@ -95,7 +95,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
                     'username' => 'example',
                     'password' => 'password',
                     'database' => 'database'
-                ]
+                ],
+                'theme' => 'default'
             ],
             $actual
         );
@@ -120,7 +121,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
                     'username' => 'username',
                     'password' => 'password',
                     'database' => 'database'
-                ]
+                ],
+                'theme' => 'fuzzy'
             ],
             $actual
         );
