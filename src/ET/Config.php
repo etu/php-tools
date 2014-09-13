@@ -48,6 +48,7 @@ class Config
             }
         }
 
+        // Convert all sub-arrays from default config to objects
         foreach ($this->config as $key => $value) {
             if (is_array($value)) {
                 $this->config->$key = (object) $value;
