@@ -2,7 +2,7 @@
     "require-dev": {
         "phpunit/phpunit": "4.2",
         "tnt/phockito": "1.2.0",
-        "squizlabs/php_codesniffer": "1.5.2",
+        "squizlabs/php_codesniffer": "1.*",
         "jakub-onderka/php-parallel-lint": "0.*"
     },
 

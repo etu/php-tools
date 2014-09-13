@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "109fd71f717b447cc1cb477985c02b69",
+    "hash": "69e93859c1689fef411760c2c77c202c",
     "packages": [],
     "packages-dev": [
         {
@@ -813,16 +813,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "1.5.2",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "a76a39b317ce8106abe6264daa505e24e1731860"
+                "reference": "4097e2c106e4a32bc234ae880e5585a19137e435"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/a76a39b317ce8106abe6264daa505e24e1731860",
-                "reference": "a76a39b317ce8106abe6264daa505e24e1731860",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/4097e2c106e4a32bc234ae880e5585a19137e435",
+                "reference": "4097e2c106e4a32bc234ae880e5585a19137e435",
                 "shasum": ""
             },
             "require": {
@@ -836,6 +836,11 @@
                 "scripts/phpcs"
             ],
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-phpcs-fixer": "2.0.x-dev"
+                }
+            },
             "autoload": {
                 "classmap": [
                     "CodeSniffer.php",
@@ -879,7 +884,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2014-02-04 23:49:58"
+            "time": "2014-08-05 23:54:05"
         },
         {
             "name": "symfony/yaml",
