@@ -26,29 +26,17 @@ class Config
 
         //Exact matching of domain name will have priority and ignore all fuzzy matching
         if (isset($config[$visitDomain])) {
-            foreach ($config[$visitDomain] as $key => $value) {
-                if (is_array($value)) {
-                    $this->config->$key = (object) array_merge($this->config->$key, $value);
-                } else {
-                    $this->config->$key = $value;
-                }
-            }
+            $this->addValues($config[$visitDomain]);
         } else {
             // Fuzzy match domain name with wildcards and run to the end of the array
             foreach ($config as $domain => $contents) {
                 if (fnmatch($domain, $visitDomain)) {
-                    foreach ($contents as $key => $value) {
-                        if (is_array($value)) {
-                            $this->config->$key = (object) array_merge($this->config->$key, $value);
-                        } else {
-                            $this->config->$key = $value;
-                        }
-                    }
+                    $this->addValues($contents);
                 }
             }
         }
 
-        // Convert all sub-arrays from default config to objects
+        // Convert all sub-arrays to objects
         foreach ($this->config as $key => $value) {
             if (is_array($value)) {
                 $this->config->$key = (object) $value;
@@ -56,8 +44,33 @@ class Config
         }
     }
 
+    /**
+     * Get values from the configruation.
+     */
     public function __get($key)
     {
         return $this->config->$key;
+    }
+
+    /**
+     * Add a single value to the configruation, might be an array.
+     */
+    private function addValue($key, $value)
+    {
+        if (is_array($value)) {
+            $this->config->$key = (object) array_merge($this->config->$key, $value);
+        } else {
+            $this->config->$key = $value;
+        }
+    }
+
+    /**
+     * Loop through an array and add contents to the configruation.
+     */
+    private function addValues($data)
+    {
+        foreach ($data as $key => $value) {
+            $this->addValue($key, $value);
+        }
     }
 }
