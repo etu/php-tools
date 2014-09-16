@@ -7,7 +7,7 @@ use \ET\Config;
 use \Phockito as P;
 use \Hamcrest_Matchers as H;
 
-class PdoBackendTest extends \PHPUnit_Framework_TestCase
+class PdoBackendConnectTest extends \PHPUnit_Framework_TestCase
 {
     /** @var PdoBackend */
     private $target;
