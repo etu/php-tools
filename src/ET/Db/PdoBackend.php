@@ -3,7 +3,7 @@ namespace ET\Db;
 
 use \ET\Config;
 
-class PdoBackend
+class PdoBackend implements BackendInterface
 {
     /** @var Config */
     private $config;
@@ -42,5 +42,26 @@ class PdoBackend
         $this->pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
 
         return true;
+    }
+
+    public function query($query)
+    {
+        $result = $this->pdo->query($query);
+
+        if (is_object($result)) {
+            $data = (object) [
+                'result' => $result->fetchAll(),
+                'rows'   => $result->rowCount()
+            ];
+
+            return $data;
+        }
+
+        return $result;
+    }
+
+    public function insertId($name = null)
+    {
+        return (int) $this->pdo->lastInsertId($name);
     }
 }
