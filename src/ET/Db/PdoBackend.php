@@ -36,7 +36,7 @@ class PdoBackend
                 $this->config->db->password
             );
         } catch (\PDOException $e) {
-            throw new DbException('PDO Exception: '.$e->getMessage());
+            throw new DbException('PDO Exception: '.$e->getMessage(), (int) $e->getCode());
         }
 
         $this->pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
