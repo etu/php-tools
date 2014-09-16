@@ -18,14 +18,6 @@ class PdoBackendTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->configMock = P::mock(Config::class);
-        /*P::when($this->configMock)->__get('db')->return(
-            (object) [
-                'dsn' => 'sqlite::memory:',
-                'username' => '',
-                'password' => ''
-            ]
-            );*/
-
 
         $this->target = new PdoBackend($this->configMock);
     }
