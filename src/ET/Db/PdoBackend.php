@@ -39,6 +39,8 @@ class PdoBackend
             throw new DbException('PDO Exception: '.$e->getMessage());
         }
 
+        $this->pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
+
         return true;
     }
 }
