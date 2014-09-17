@@ -4,6 +4,7 @@ namespace Tests\ET;
 use \ET\Db;
 use \ET\Config;
 use \ET\Db\PdoBackend;
+use \ET\Db\Raw as DbRaw;
 
 use \Phockito as P;
 use \Hamcrest_Matchers as H;
@@ -48,11 +49,14 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function shouldEscapeAndRunQuery()
     {
         // Fixture
-        $sql = 'SELECT * FROM names WHERE name = :name';
-        $params = [ ':name' => 'Alice' ];
+        $sql = 'SELECT * FROM names WHERE name = :name AND age = :age';
+        $params = [
+            ':name' => 'Alice',
+            ':age'  => new DbRaw('20')
+        ];
 
         P::when($this->pdoBackendMock)->escape('Alice')->return("'Alice'");
-        P::when($this->pdoBackendMock)->query("SELECT * FROM names WHERE name = 'Alice'")->return(true);
+        P::when($this->pdoBackendMock)->query("SELECT * FROM names WHERE name = 'Alice' AND age = 20")->return(true);
 
         // Test
         $actual = $this->target->query($sql, $params);

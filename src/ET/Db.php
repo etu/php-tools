@@ -2,6 +2,7 @@
 namespace ET;
 
 use \ET\Db\BackendInterface as Backend;
+use \ET\Db\Raw as DbRaw;
 
 class Db
 {
@@ -28,8 +29,11 @@ class Db
         // Handle params
         foreach ($params as $key => $value) {
             switch (gettype($value)) {
-                /*case 'object':
-                    break;*/
+                case 'object':
+                    if (get_class($value) == 'ET\Db\Raw') {
+                        $fixedValue = (string) $value;
+                    }
+                    break;
                 default:
                     $fixedValue = $this->backend->escape($value);
                     break;
@@ -37,7 +41,6 @@ class Db
 
             $sql = str_replace($key, $fixedValue, $sql);
         }
-
         // Save prepared query
         $this->lastQuery = $sql;
 
