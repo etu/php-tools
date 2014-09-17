@@ -1,0 +1,18 @@
+* Install with composer:
+composer.json
+: {
+:     ...
+:     "repositories": [
+:         {
+:             "url": "https://github.com/etu/ET.git",
+:             "type": "git"
+:         }
+:         ...
+:     ]
+:     ...
+:     "require": {
+:         "etu/ET": "dev-master"
+:         ...
+:     }
+:     ...
+: }
