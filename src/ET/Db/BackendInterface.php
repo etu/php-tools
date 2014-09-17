@@ -5,7 +5,7 @@ use \ET\Config;
 
 interface BackendInterface
 {
-    public function connect(Config $config);
+    public function connect(Config $config, $database = 'db');
 
     public function query($query);
     public function insertId($name = null);

@@ -11,15 +11,15 @@ class PdoBackend implements BackendInterface
     /** @var \PDO */
     private $pdo;
 
-    public function connect(Config $config)
+    public function connect(Config $config, $database = 'db')
     {
         $this->config = $config;
 
-        if (!isset($this->config->db->dsn)) {
+        if (!isset($this->config->$database->dsn)) {
             throw new DbException('DSN is not defined in config, this is required for PDO');
         }
 
-        if (!isset($this->config->db->username) || !isset($this->config->db->password)) {
+        if (!isset($this->config->$database->username) || !isset($this->config->$database->password)) {
             throw new DbException(
                 'Username or Password is not defined in config,'.
                 'this is required to be at least empty.'
@@ -28,9 +28,9 @@ class PdoBackend implements BackendInterface
 
         try {
             $this->pdo = new \PDO(
-                $this->config->db->dsn,
-                $this->config->db->username,
-                $this->config->db->password
+                $this->config->$database->dsn,
+                $this->config->$database->username,
+                $this->config->$database->password
             );
         } catch (\PDOException $e) {
             throw new DbException('PDO Exception: '.$e->getMessage(), (int) $e->getCode());
