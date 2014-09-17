@@ -26,8 +26,8 @@ class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
             ]
         );
 
-        $this->target = new PdoBackend($this->configMock);
-        $this->target->connect();
+        $this->target = new PdoBackend();
+        $this->target->connect($this->configMock);
 
         $this->target->query('CREATE TABLE names(id INTEGER PRIMARY KEY, name VARCHAR(10));');
         $this->target->query('INSERT INTO names(id, name) VALUES (NULL, "Alice");');

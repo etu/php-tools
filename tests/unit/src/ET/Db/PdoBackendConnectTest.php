@@ -19,7 +19,7 @@ class PdoBackendConnectTest extends \PHPUnit_Framework_TestCase
     {
         $this->configMock = P::mock(Config::class);
 
-        $this->target = new PdoBackend($this->configMock);
+        $this->target = new PdoBackend();
     }
 
     /**
@@ -29,7 +29,7 @@ class PdoBackendConnectTest extends \PHPUnit_Framework_TestCase
     public function shouldFailOnMissingDSN()
     {
         // Test
-        $this->target->connect();
+        $this->target->connect($this->configMock);
     }
 
     /**
@@ -46,7 +46,7 @@ class PdoBackendConnectTest extends \PHPUnit_Framework_TestCase
         );
 
         // Test
-        $this->target->connect();
+        $this->target->connect($this->configMock);
     }
 
     /**
@@ -65,7 +65,7 @@ class PdoBackendConnectTest extends \PHPUnit_Framework_TestCase
         );
 
         // Test
-        $this->target->connect();
+        $this->target->connect($this->configMock);
     }
 
     /**
@@ -83,7 +83,7 @@ class PdoBackendConnectTest extends \PHPUnit_Framework_TestCase
         );
 
         // Test
-        $actual = $this->target->connect();
+        $actual = $this->target->connect($this->configMock);
 
         // Assert
         $this->assertTrue($actual);

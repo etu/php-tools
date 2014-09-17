@@ -11,13 +11,10 @@ class PdoBackend implements BackendInterface
     /** @var \PDO */
     private $pdo;
 
-    public function __construct(Config $config)
+    public function connect(Config $config)
     {
         $this->config = $config;
-    }
 
-    public function connect()
-    {
         if (!isset($this->config->db->dsn)) {
             throw new DbException('DSN is not defined in config, this is required for PDO');
         }
