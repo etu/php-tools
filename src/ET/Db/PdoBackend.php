@@ -8,7 +8,7 @@ class PdoBackend implements BackendInterface
     /** @var Config */
     private $config;
 
-    /** @var PDO */
+    /** @var \PDO */
     private $pdo;
 
     public function __construct(Config $config)
