@@ -84,4 +84,17 @@ class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals(2, $actual);
     }
+
+    /**
+     * @test
+     */
+    public function shouldEscapeString()
+    {
+        // Fixture
+        // Test
+        $actual = $this->target->escape('"; SELECT "Alice";');
+
+        // Actual
+        $this->assertEquals("'\"; SELECT \"Alice\";'", $actual);
+    }
 }

@@ -64,4 +64,9 @@ class PdoBackend implements BackendInterface
     {
         return (int) $this->pdo->lastInsertId($name);
     }
+
+    public function escape($string)
+    {
+        return $this->pdo->quote($string);
+    }
 }
