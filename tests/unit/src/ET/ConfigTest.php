@@ -1,4 +1,9 @@
 <?php
+/**
+ * @license ISC License <http://opensource.org/licenses/ISC>
+ * @author Elis Axelsson <http://elis.nu/>
+ * @since 2014
+ */
 namespace Tests\ET;
 
 use \ET\Config;
@@ -50,10 +55,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals(
             (object) [
-                'hostname' => 'localhost',
+                'dsn' => 'sqlite::memory:',
                 'username' => 'username',
                 'password' => 'password',
-                'database' => 'database'
             ],
             $actual
         );
@@ -88,10 +92,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals(
             (object) [
-                'hostname' => 'localhost',
+                'dsn' => 'sqlite::memory:',
                 'username' => 'example',
                 'password' => 'password',
-                'database' => 'database'
             ],
             $actual
         );
@@ -126,10 +129,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals(
             (object) [
-                'hostname' => 'fuzzyMatching',
-                'username' => 'username',
+                'dsn' => 'sqlite::memory:',
+                'username' => 'fuzzy',
                 'password' => 'password',
-                'database' => 'database'
             ],
             $actual
         );
