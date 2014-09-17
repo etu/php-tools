@@ -30,7 +30,7 @@ class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
         $this->target->connect();
 
         $this->target->query('CREATE TABLE names(id INTEGER PRIMARY KEY, name VARCHAR(10));');
-        $this->target->query('INSERT INTO names(id, name) VALUES (NULL, "Tarzan");');
+        $this->target->query('INSERT INTO names(id, name) VALUES (NULL, "Alice");');
     }
 
     /**
@@ -40,7 +40,7 @@ class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
     {
         // Fixture
         // Test
-        $actual = $this->target->query('SELECT * FROM names WHERE name = "Tarzan"');
+        $actual = $this->target->query('SELECT * FROM names WHERE name = "Alice"');
 
         // Assert
         $this->assertEquals(
@@ -48,7 +48,7 @@ class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
                 'result' => [
                     (object) [
                         'id'   => '1',
-                        'name' => 'Tarzan'
+                        'name' => 'Alice'
                     ]
                 ],
                 'rows' => 0
@@ -76,7 +76,7 @@ class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnInsertId()
     {
         // Fixture
-        $this->target->query('INSERT INTO names(id, name) VALUES (NULL, "Jane");');
+        $this->target->query('INSERT INTO names(id, name) VALUES (NULL, "Bob");');
 
         // Test
         $actual = $this->target->insertId();
