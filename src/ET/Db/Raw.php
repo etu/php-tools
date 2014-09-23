@@ -12,7 +12,7 @@ class Raw
 
     public function __construct($data)
     {
-        $this->data = $data;
+        $this->data = (string) $data;
     }
 
     public function __toString()
