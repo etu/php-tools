@@ -87,7 +87,7 @@ class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
         $actual = $this->target->insertId();
 
         // Assert
-        $this->assertEquals(2, $actual);
+        $this->assertSame(2, $actual);
     }
 
     /**
@@ -100,6 +100,6 @@ class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
         $actual = $this->target->escape('"; SELECT "Alice";');
 
         // Actual
-        $this->assertEquals("'\"; SELECT \"Alice\";'", $actual);
+        $this->assertSame("'\"; SELECT \"Alice\";'", $actual);
     }
 }

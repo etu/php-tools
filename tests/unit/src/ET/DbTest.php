@@ -45,7 +45,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $actual = $this->target->insertId();
 
         // Assert
-        $this->assertEquals(3, $actual);
+        $this->assertSame(3, $actual);
     }
 
     /**
@@ -83,6 +83,6 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $actual = $this->target->lastQuery();
 
         // Assert
-        $this->assertEquals("SELECT 'Alice'", $actual);
+        $this->assertSame("SELECT 'Alice'", $actual);
     }
 }

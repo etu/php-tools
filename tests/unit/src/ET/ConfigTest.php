@@ -75,7 +75,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $actual = $target->theme;
 
         // Assert
-        $this->assertEquals('default', $actual);
+        $this->assertSame('default', $actual);
     }
 
     /**
@@ -112,7 +112,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $actual = $target->theme;
 
         // Assert
-        $this->assertEquals('fuzzy', $actual);
+        $this->assertSame('fuzzy', $actual);
     }
 
     /**
