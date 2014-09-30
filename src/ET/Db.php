@@ -49,8 +49,11 @@ class Db
         // Save prepared query
         $this->lastQuery = $sql;
 
-        // Run query
-        return $this->backend->query($sql);
+        // Run query @TODO: Check status?
+        $status = $this->backend->query($sql);
+
+        // Return Db object
+        return $this;
     }
 
     public function insertId($name = null)
@@ -61,5 +64,15 @@ class Db
     public function lastQuery()
     {
         return $this->lastQuery;
+    }
+
+    public function fetchRow()
+    {
+        return $this->backend->fetchRow();
+    }
+
+    public function fetchAll()
+    {
+        return $this->backend->fetchAll();
     }
 }

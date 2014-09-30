@@ -59,15 +59,16 @@ class DbTest extends \PHPUnit_Framework_TestCase
             ':name' => 'Alice',
             ':age'  => new DbRaw('20')
         ];
+        $escapedSql = "SELECT * FROM names WHERE name = 'Alice' AND age = 20";
 
         P::when($this->pdoBackendMock)->escape('Alice')->return("'Alice'");
-        P::when($this->pdoBackendMock)->query("SELECT * FROM names WHERE name = 'Alice' AND age = 20")->return(true);
+        P::when($this->pdoBackendMock)->query($escapedSql)->return($this->target);
 
         // Test
         $actual = $this->target->query($sql, $params);
 
         // Assert
-        $this->assertTrue($actual);
+        $this->assertSame($this->target, $actual);
     }
 
     /**
@@ -77,12 +78,52 @@ class DbTest extends \PHPUnit_Framework_TestCase
     {
         // Fixture
         P::when($this->pdoBackendMock)->escape('Alice')->return("'Alice'");
+        $this->target->query('SELECT :name', [':name' => 'Alice']);
 
         // Test
-        $this->target->query('SELECT :name', [':name' => 'Alice']);
         $actual = $this->target->lastQuery();
 
         // Assert
         $this->assertSame("SELECT 'Alice'", $actual);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldFetchRow()
+    {
+        // Fixture
+        $result = (object) [
+            'id' => 1,
+            'name' => 'Alice'
+        ];
+        P::when($this->pdoBackendMock)->fetchRow()->return($result);
+
+        // Test
+        $actual = $this->target->fetchRow();
+
+        // Assert
+        $this->assertSame($result, $actual);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldFetcAll()
+    {
+        // Fixture
+        $result = [
+            (object) [
+                'id' => 1,
+                'name' => 'Alice'
+            ]
+        ];
+        P::when($this->pdoBackendMock)->fetchAll()->return($result);
+
+        // Test
+        $actual = $this->target->fetchAll();
+
+        // Assert
+        $this->assertSame($result, $actual);
     }
 }
