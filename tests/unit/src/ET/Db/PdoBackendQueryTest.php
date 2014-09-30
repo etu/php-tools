@@ -41,31 +41,20 @@ class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldReturnData()
+    public function shouldNotFailQuery()
     {
         // Fixture
         // Test
         $actual = $this->target->query('SELECT * FROM names WHERE name = "Alice"');
 
         // Assert
-        $this->assertEquals(
-            (object) [
-                'result' => [
-                    (object) [
-                        'id'   => '1',
-                        'name' => 'Alice'
-                    ]
-                ],
-                'rows' => 0
-            ],
-            $actual
-        );
+        $this->assertTrue($actual);
     }
 
     /**
      * @test
      */
-    public function shouldNotReturnData()
+    public function shouldFailQuery()
     {
         // Fixture
         // Test
@@ -99,7 +88,51 @@ class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
         // Test
         $actual = $this->target->escape('"; SELECT "Alice";');
 
-        // Actual
+        // Assert
         $this->assertSame("'\"; SELECT \"Alice\";'", $actual);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldFetchRow()
+    {
+        // Fixture
+        $this->target->query('SELECT * FROM names');
+
+        // Test
+        $actual = $this->target->fetchRow();
+
+        // Assert
+        $this->assertEquals(
+            (object) [
+                'id'   => 1,
+                'name' => 'Alice'
+            ],
+            $actual
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function shouldFetchAll()
+    {
+        // Fixture
+        $this->target->query('SELECT * FROM names');
+
+        // Test
+        $actual = $this->target->fetchAll();
+
+        // Assert
+        $this->assertEquals(
+            [
+                (object) [
+                    'id'   => 1,
+                    'name' => 'Alice'
+                ]
+            ],
+            $actual
+        );
     }
 }

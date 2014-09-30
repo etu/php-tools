@@ -15,4 +15,6 @@ interface BackendInterface
     public function query($query);
     public function insertId($name = null);
     public function escape($string);
+    public function fetchRow();
+    public function fetchAll();
 }

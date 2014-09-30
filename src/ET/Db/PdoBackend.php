@@ -16,6 +16,9 @@ class PdoBackend implements BackendInterface
     /** @var \PDO */
     private $pdo;
 
+    /** @var \PDOStatement  */
+    private $lastStatement;
+
     public function connect(Config $config, $database = 'db')
     {
         $this->config = $config;
@@ -48,18 +51,9 @@ class PdoBackend implements BackendInterface
 
     public function query($query)
     {
-        $result = $this->pdo->query($query);
+        $this->lastStatement = $this->pdo->query($query);
 
-        if (is_object($result)) {
-            $data = (object) [
-                'result' => $result->fetchAll(),
-                'rows'   => $result->rowCount()
-            ];
-
-            return $data;
-        }
-
-        return $result;
+        return (bool) $this->lastStatement;
     }
 
     public function insertId($name = null)
@@ -70,5 +64,15 @@ class PdoBackend implements BackendInterface
     public function escape($string)
     {
         return $this->pdo->quote($string);
+    }
+
+    public function fetchRow()
+    {
+        return $this->lastStatement->fetch();
+    }
+
+    public function fetchAll()
+    {
+        return $this->lastStatement->fetchAll();
     }
 }
