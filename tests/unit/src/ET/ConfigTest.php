@@ -136,4 +136,19 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             $actual
         );
     }
+
+    /**
+     * @test
+     */
+    public function shouldHandleArraysThatIsNotSetInGlobalConfig()
+    {
+        // Fixture
+        $target = new Config(__DIR__.'/files/nondefaultarray.ini', 'example.com');
+
+        // Test
+        $actual = $target->db->dsn;
+
+        // Assert
+        $this->assertSame('sqlite::memory:', $actual);
+    }
 }

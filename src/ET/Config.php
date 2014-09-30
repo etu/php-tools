@@ -62,7 +62,7 @@ class Config
      */
     private function addValue($key, $value)
     {
-        if (is_array($value)) {
+        if (is_array($value) && isset($this->config->$key)) {
             $this->config->$key = (object) array_merge($this->config->$key, $value);
         } else {
             $this->config->$key = $value;
