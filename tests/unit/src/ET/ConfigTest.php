@@ -151,4 +151,19 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertSame('sqlite::memory:', $actual);
     }
+
+    /**
+     * @test
+     */
+    public function shouldHandleMultidimensionalKeys()
+    {
+        // Fixture
+        $target = new Config(__DIR__.'/files/deeperconfig.ini', 'example.com');
+
+        // Test
+        $actual = $target->db->db1->dsn;
+
+        // Assert
+        $this->assertSame('sqlite::memory:', $actual);
+    }
 }

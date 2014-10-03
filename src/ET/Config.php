@@ -59,6 +59,15 @@ class Config
      */
     private function addValue($key, $value)
     {
+        $keys = explode('.', $key);
+
+        // If we're going multidimenional...
+        if (count($keys) > 1) {
+            $key = $keys[0];
+
+            $value = $this->createRecursiveArray($keys, $value)[$key];
+        }
+
         if (is_array($value) && isset($this->config->$key)) {
             $this->config->$key = array_merge($this->config->$key, $value);
         } else {
@@ -74,5 +83,32 @@ class Config
         foreach ($data as $key => $value) {
             $this->addValue($key, $value);
         }
+    }
+
+    /**
+     * Creates a recursive array based on $keys and it's $value
+     *
+     * For example:
+     * $keys = [ 'one', 'two' ];
+     * $value = 'value';
+     *
+     * Result:
+     * [ 'one' => [ 'two' => 'value' ] ]
+     */
+    private function createRecursiveArray($keys, $value)
+    {
+        if (count($keys) === 1) {
+            $array = [
+                array_shift($keys) => $value
+            ];
+        }
+
+        if (count($keys) >= 1) {
+            $array = [
+                array_shift($keys) => $this->createRecursiveArray($keys, $value)
+            ];
+        }
+
+        return $array;
     }
 }
