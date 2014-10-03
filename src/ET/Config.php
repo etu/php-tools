@@ -26,7 +26,8 @@ class Config
         }
 
         // Set default-values and remove it from the list
-        $this->config = (object) $config['@'];
+        $this->config = (object) [];
+        $this->addValues($config['@']);
         unset($config['@']);
 
         //Exact matching of domain name will have priority and ignore all fuzzy matching
