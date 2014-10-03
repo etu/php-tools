@@ -43,11 +43,7 @@ class Config
         }
 
         // Convert all sub-arrays to objects
-        foreach ($this->config as $key => $value) {
-            if (is_array($value)) {
-                $this->config->$key = (object) $value;
-            }
-        }
+        $this->config = json_decode(json_encode($this->config));
     }
 
     /**
