@@ -9,9 +9,6 @@ namespace Tests\ET\Db;
 use \ET\Db\PdoBackend;
 use \ET\Config;
 
-use \Phockito as P;
-use \Hamcrest_Matchers as H;
-
 class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
 {
     /** @var PdoBackend */
@@ -22,14 +19,15 @@ class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->configMock = P::mock(Config::class);
-        P::when($this->configMock)->__get('db')->return(
+        $this->configMock = $this->getMockBuilder(Config::class)
+            ->disableOriginalConstructor()->getMock();
+        $this->configMock->method('__get')->with('db')->will($this->returnValue(
             (object) [
                 'dsn' => 'sqlite::memory:',
                 'username' => 'root',
                 'password' => ''
             ]
-        );
+        ));
 
         $this->target = new PdoBackend();
         $this->target->connect($this->configMock);
