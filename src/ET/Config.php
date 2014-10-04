@@ -43,6 +43,9 @@ class Config
                 $this->addValues($contents);
             }
         }
+
+        // Convert all sub-arrays of config to objects
+        $this->config = json_decode(json_encode($this->config));
     }
 
     /**
@@ -50,9 +53,6 @@ class Config
      */
     public function __get($key)
     {
-        // Convert all sub-arrays of requested variable to objects
-        $this->config->$key = json_decode(json_encode($this->config->$key));
-
         return $this->config->$key;
     }
 
