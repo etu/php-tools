@@ -28,3 +28,8 @@ PHP_CODE_SNIFFER="${VENDOR_DIR}/bin/phpcs --encoding=UTF-8"
 ##
 UNITTEST_DIR=$TEST_DIR/unit
 PHPUNIT=$VENDOR_DIR/bin/phpunit
+
+###
+# Used by: phpmd.sh
+##
+PHPMD=$VENDOR_DIR/bin/phpmd
