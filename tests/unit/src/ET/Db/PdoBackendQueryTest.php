@@ -24,7 +24,7 @@ class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
         $this->configMock->method('__get')->with('db')->will($this->returnValue(
             (object) [
                 'dsn' => 'sqlite::memory:',
-                'username' => 'root',
+                'username' => '',
                 'password' => ''
             ]
         ));
