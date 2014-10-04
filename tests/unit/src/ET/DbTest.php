@@ -12,9 +12,6 @@ use \ET\Db\PdoBackend;
 use \ET\Db\Raw as DbRaw;
 use \ET\Db\DbException;
 
-use \Phockito as P;
-use \Hamcrest_Matchers as H;
-
 class DbTest extends \PHPUnit_Framework_TestCase
 {
     /** @var Db */
@@ -28,8 +25,8 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->configMock     = P::mock(Config::class);
-        $this->pdoBackendMock = P::mock(PdoBackend::class);
+        $this->configMock = $this->getMockBuilder(Config::class)->disableOriginalConstructor()->getMock();
+        $this->pdoBackendMock = $this->getMockBuilder(PdoBackend::class)->disableOriginalConstructor()->getMock();
 
         $this->target = new Db($this->configMock, $this->pdoBackendMock);
     }
@@ -40,7 +37,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnInsertId()
     {
         // Fixture
-        P::when($this->pdoBackendMock)->insertId()->return(3);
+        $this->pdoBackendMock->method('insertId')->will($this->returnValue(3));
 
         // Test
         $actual = $this->target->insertId();
@@ -56,14 +53,11 @@ class DbTest extends \PHPUnit_Framework_TestCase
     {
         // Fixture
         $sql = 'SELECT * FROM names WHERE name = :name AND age = :age';
-        $params = [
-            ':name' => 'Alice',
-            ':age'  => new DbRaw('20')
-        ];
+        $params = [':name' => 'Alice', ':age'  => new DbRaw('20')];
         $escapedSql = "SELECT * FROM names WHERE name = 'Alice' AND age = 20";
 
-        P::when($this->pdoBackendMock)->escape('Alice')->return("'Alice'");
-        P::when($this->pdoBackendMock)->query($escapedSql)->return($this->target);
+        $this->pdoBackendMock->method('escape')->with('Alice')->will($this->returnValue("'Alice'"));
+        $this->pdoBackendMock->method('query')->with($escapedSql)->will($this->returnValue($this->target));
 
         // Test
         $actual = $this->target->query($sql, $params);
@@ -79,7 +73,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function shouldFailQuery()
     {
         // Fixture
-        P::when($this->pdoBackendMock)->query('')->throw(new DbException());
+        $this->pdoBackendMock->method('query')->with('')->will($this->throwException(new DbException()));
 
         // Test
         $this->target->query('');
@@ -91,7 +85,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnLastQuery()
     {
         // Fixture
-        P::when($this->pdoBackendMock)->escape('Alice')->return("'Alice'");
+        $this->pdoBackendMock->method('escape')->with('Alice')->will($this->returnValue("'Alice'"));
         $this->target->query('SELECT :name', [':name' => 'Alice']);
 
         // Test
@@ -107,17 +101,14 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function shouldFetchRow()
     {
         // Fixture
-        $result = (object) [
-            'id' => 1,
-            'name' => 'Alice'
-        ];
-        P::when($this->pdoBackendMock)->fetchRow()->return($result);
+        $row = (object) [ 'id' => 1, 'name' => 'Alice' ];
+        $this->pdoBackendMock->method('fetchRow')->will($this->returnValue($row));
 
         // Test
         $actual = $this->target->fetchRow();
 
         // Assert
-        $this->assertSame($result, $actual);
+        $this->assertSame($row, $actual);
     }
 
     /**
@@ -126,18 +117,13 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function shouldFetchAll()
     {
         // Fixture
-        $result = [
-            (object) [
-                'id' => 1,
-                'name' => 'Alice'
-            ]
-        ];
-        P::when($this->pdoBackendMock)->fetchAll()->return($result);
+        $rows = [ (object) [ 'id' => 1, 'name' => 'Alice' ] ];
+        $this->pdoBackendMock->method('fetchAll')->will($this->returnValue($rows));
 
         // Test
         $actual = $this->target->fetchAll();
 
         // Assert
-        $this->assertSame($result, $actual);
+        $this->assertSame($rows, $actual);
     }
 }
