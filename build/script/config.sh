@@ -3,15 +3,15 @@
 ###
 # Globaly used directories
 ##
-SCRIPT_DIR=${0%/*}
-VENDOR_DIR=$SCRIPT_DIR/../../vendor
-TEST_DIR=$SCRIPT_DIR/../../tests
-LOG_DIR=$SCRIPT_DIR/../log
+PROJECT_DIR=${0%/*}/../../
+VENDOR_DIR=$PROJECT_DIR/vendor
+TEST_DIR=$PROJECT_DIR/tests
+LOG_DIR=$PROJECT_DIR/build/log
 
 ###
 # Used by: prepare.sh
 ##
-COMPOSER=$SCRIPT_DIR/../../composer.phar
+COMPOSER=$PROJECT_DIR/composer.phar
 
 ###
 # Used by: lint.sh
