@@ -70,11 +70,12 @@ class Config
             $value = $this->createRecursiveArray($keys, $value)[$key];
         }
 
+        // And if we're going to merge arrays
         if (is_array($value) && isset($this->config->$key)) {
-            $this->config->$key = array_merge($this->config->$key, $value);
-        } else {
-            $this->config->$key = $value;
+            $value = array_merge($this->config->$key, $value);
         }
+
+        $this->config->$key = $value;
     }
 
     /**
