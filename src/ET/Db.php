@@ -49,8 +49,12 @@ class Db
         // Save prepared query
         $this->lastQuery = $sql;
 
-        // Run query @TODO: Check status?
-        $status = $this->backend->query($sql);
+        // Run Query
+        try {
+            $this->backend->query($sql);
+        } catch (\ET\Db\DbException $e) {
+            throw $e;
+        }
 
         // Return Db object
         return $this;

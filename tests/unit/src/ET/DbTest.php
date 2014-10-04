@@ -10,6 +10,7 @@ use \ET\Db;
 use \ET\Config;
 use \ET\Db\PdoBackend;
 use \ET\Db\Raw as DbRaw;
+use \ET\Db\DbException;
 
 use \Phockito as P;
 use \Hamcrest_Matchers as H;
@@ -69,6 +70,19 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
         // Assert
         $this->assertSame($this->target, $actual);
+    }
+
+    /**
+     * @test
+     * @expectedException ET\Db\DbException
+     */
+    public function shouldFailQuery()
+    {
+        // Fixture
+        P::when($this->pdoBackendMock)->query('')->throw(new DbException());
+
+        // Test
+        $this->target->query('');
     }
 
     /**
