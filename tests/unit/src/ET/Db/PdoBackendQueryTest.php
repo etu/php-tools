@@ -53,15 +53,12 @@ class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @expectedException ET\Db\DbException
      */
     public function shouldFailQuery()
     {
-        // Fixture
         // Test
         $actual = $this->target->query('DELETE "Someone else"');
-
-        // Assert
-        $this->assertFalse($actual);
     }
 
     /**

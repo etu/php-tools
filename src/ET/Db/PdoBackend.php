@@ -45,13 +45,18 @@ class PdoBackend implements BackendInterface
         }
 
         $this->pdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
+        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
         return true;
     }
 
     public function query($query)
     {
-        $this->lastStatement = $this->pdo->query($query);
+        try {
+            $this->lastStatement = $this->pdo->query($query);
+        } catch (\PDOException $e) {
+            throw new DbException('PDO Exception: '.$e->getMessage(), (int) $e->getCode());
+        }
 
         return (bool) $this->lastStatement;
     }
