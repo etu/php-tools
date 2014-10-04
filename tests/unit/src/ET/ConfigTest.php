@@ -8,9 +8,6 @@ namespace Tests\ET;
 
 use \ET\Config;
 
-use \Phockito as P;
-use \Hamcrest_Matchers as H;
-
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {
     /** @var Config */
