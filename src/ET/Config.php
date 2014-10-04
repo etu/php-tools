@@ -12,6 +12,8 @@ class Config
 
     public function __construct($configFile, $visitDomain)
     {
+        $this->config = new \stdClass;
+
         // Config not found at all
         if (!file_exists($configFile)) {
             throw new ConfigException('Configruation file not found: '.$configFile);
@@ -25,10 +27,8 @@ class Config
             throw new ConfigException('Configruation file failed to parse: '.$configFile);
         }
 
-        // Set default-values and remove it from the list
-        $this->config = (object) [];
+        // Set default-values
         $this->addValues($config['@']);
-        unset($config['@']);
 
         // If an exact match exists, overwrite all configs to make only exact one exist
         if (isset($config[$visitDomain])) {
