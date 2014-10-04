@@ -25,8 +25,10 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->configMock = $this->getMockBuilder(Config::class)->disableOriginalConstructor()->getMock();
-        $this->pdoBackendMock = $this->getMockBuilder(PdoBackend::class)->disableOriginalConstructor()->getMock();
+        $this->configMock = $this->getMockBuilder(Config::class)
+            ->disableOriginalConstructor()->getMock();
+        $this->pdoBackendMock = $this->getMockBuilder(PdoBackend::class)
+            ->disableOriginalConstructor()->getMock();
 
         $this->target = new Db($this->configMock, $this->pdoBackendMock);
     }
@@ -56,8 +58,12 @@ class DbTest extends \PHPUnit_Framework_TestCase
         $params = [':name' => 'Alice', ':age'  => new DbRaw('20')];
         $escapedSql = "SELECT * FROM names WHERE name = 'Alice' AND age = 20";
 
-        $this->pdoBackendMock->method('escape')->with('Alice')->will($this->returnValue("'Alice'"));
-        $this->pdoBackendMock->method('query')->with($escapedSql)->will($this->returnValue($this->target));
+        $this->pdoBackendMock->method('escape')->with('Alice')->will(
+            $this->returnValue("'Alice'")
+        );
+        $this->pdoBackendMock->method('query')->with($escapedSql)->will(
+            $this->returnValue($this->target)
+        );
 
         // Test
         $actual = $this->target->query($sql, $params);
@@ -73,7 +79,9 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function shouldFailQuery()
     {
         // Fixture
-        $this->pdoBackendMock->method('query')->with('')->will($this->throwException(new DbException()));
+        $this->pdoBackendMock->method('query')->with('')->will(
+            $this->throwException(new DbException())
+        );
 
         // Test
         $this->target->query('');
@@ -85,7 +93,9 @@ class DbTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnLastQuery()
     {
         // Fixture
-        $this->pdoBackendMock->method('escape')->with('Alice')->will($this->returnValue("'Alice'"));
+        $this->pdoBackendMock->method('escape')->with('Alice')->will(
+            $this->returnValue("'Alice'")
+        );
         $this->target->query('SELECT :name', [':name' => 'Alice']);
 
         // Test
