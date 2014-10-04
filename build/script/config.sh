@@ -3,7 +3,7 @@
 ###
 # Globaly used directories
 ##
-PROJECT_DIR=${0%/*}/../../
+PROJECT_DIR=${0%/*}/../..
 VENDOR_DIR=$PROJECT_DIR/vendor
 TEST_DIR=$PROJECT_DIR/tests
 LOG_DIR=$PROJECT_DIR/build/log
