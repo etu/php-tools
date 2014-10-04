@@ -123,7 +123,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldFetcAll()
+    public function shouldFetchAll()
     {
         // Fixture
         $result = [
