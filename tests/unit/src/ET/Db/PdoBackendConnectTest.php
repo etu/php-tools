@@ -9,9 +9,6 @@ namespace Tests\ET\Db;
 use \ET\Db\PdoBackend;
 use \ET\Config;
 
-use \Phockito as P;
-use \Hamcrest_Matchers as H;
-
 class PdoBackendConnectTest extends \PHPUnit_Framework_TestCase
 {
     /** @var PdoBackend */
@@ -22,7 +19,8 @@ class PdoBackendConnectTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->configMock = P::mock(Config::class);
+        $this->configMock = $this->getMockBuilder(Config::class)
+            ->disableOriginalConstructor()->getMock();
 
         $this->target = new PdoBackend();
     }
@@ -44,11 +42,11 @@ class PdoBackendConnectTest extends \PHPUnit_Framework_TestCase
     public function shouldFailOnMissingUsernameOrPassword()
     {
         // Fixture
-        P::when($this->configMock)->__get('db')->return(
+        $this->configMock->method('__get')->with('db')->will($this->returnValue(
             (object) [
                 'dsn' => 'sqlite::memory:'
             ]
-        );
+        ));
 
         // Test
         $this->target->connect($this->configMock);
@@ -61,13 +59,13 @@ class PdoBackendConnectTest extends \PHPUnit_Framework_TestCase
     public function shouldFailOnInvalidDSN()
     {
         // Fixture
-        P::when($this->configMock)->__get('db')->return(
+        $this->configMock->method('__get')->with('db')->will($this->returnValue(
             (object) [
                 'dsn' => 'invalid::driver:',
                 'username' => '',
                 'password' => ''
             ]
-        );
+        ));
 
         // Test
         $this->target->connect($this->configMock);
@@ -79,13 +77,13 @@ class PdoBackendConnectTest extends \PHPUnit_Framework_TestCase
     public function shouldConnect()
     {
         // Fixture
-        P::when($this->configMock)->__get('db')->return(
+        $this->configMock->method('__get')->with('db')->will($this->returnValue(
             (object) [
                 'dsn' => 'sqlite::memory:',
                 'username' => '',
                 'password' => ''
             ]
-        );
+        ));
 
         // Test
         $actual = $this->target->connect($this->configMock);
