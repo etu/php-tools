@@ -30,20 +30,19 @@ class Config
         $this->addValues($config['@']);
         unset($config['@']);
 
-        //Exact matching of domain name will have priority and ignore all fuzzy matching
+        // If an exact match exists, overwrite all configs to make only exact one exist
         if (isset($config[$visitDomain])) {
-            $this->addValues($config[$visitDomain]);
-        } else {
-            // Fuzzy match domain name with wildcards and run to the end of the array
-            foreach ($config as $domain => $contents) {
-                if (fnmatch($domain, $visitDomain)) {
-                    $this->addValues($contents);
-                }
-            }
+            $config = [
+                $visitDomain => $config[$visitDomain]
+            ];
         }
 
-        // Convert all sub-arrays to objects
-        $this->config = json_decode(json_encode($this->config));
+        // Fuzzy match domain name and apply configs
+        foreach ($config as $domain => $contents) {
+            if (fnmatch($domain, $visitDomain)) {
+                $this->addValues($contents);
+            }
+        }
     }
 
     /**
@@ -51,6 +50,9 @@ class Config
      */
     public function __get($key)
     {
+        // Convert all sub-arrays of requested variable to objects
+        $this->config->$key = json_decode(json_encode($this->config->$key));
+
         return $this->config->$key;
     }
 
