@@ -26,7 +26,7 @@
 
     "autoload-dev": {
         "psr-4": {
-            "Tests\\ET\\": "tests/unit/src/ET"
+            "Tests\\ET\\": "unit/src/ET"
         }
     }
 }
