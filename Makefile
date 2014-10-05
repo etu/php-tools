@@ -1,6 +1,6 @@
 # Get root dir of project
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-LOG_DIR := $(PROJECT_DIR)/build/log
+LOG_DIR := $(PROJECT_DIR)/log
 
 all:
 	make lint
