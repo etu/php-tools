@@ -3,6 +3,7 @@ PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 LOG_DIR := $(PROJECT_DIR)/log
 
 all:
+	env php --version
 	make lint
 	make phpcs
 	make phpmd
