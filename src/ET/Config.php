@@ -10,37 +10,31 @@ class Config
 {
     private $config;
 
-    public function __construct($configFile, $visitDomain = '@')
+    public function __construct($configFile, $env = '@')
     {
         $this->config = new \stdClass;
 
-        // Config not found at all
         if (!file_exists($configFile)) {
             throw new ConfigException('Configruation file not found: '.$configFile);
         }
 
-        // Parse INI file
         $config = parse_ini_file($configFile, true);
 
-        // Failed to parse, empty or no default domain specified
         if (!$config || !is_array($config['@'])) {
             throw new ConfigException('Configruation file failed to parse: '.$configFile);
         }
 
-        // Set default-values
         $this->addValues($config['@']);
 
-        // If an exact match exists, overwrite all configs to make only exact one exist
-        if (isset($config[$visitDomain])) {
+        if (isset($config[$env])) {
             $config = [
-                $visitDomain => $config[$visitDomain]
+                $env => $config[$env]
             ];
         }
 
-        // Fuzzy match domain name and apply configs
-        foreach ($config as $domain => $contents) {
-            if (fnmatch($domain, $visitDomain)) {
-                $this->addValues($contents);
+        foreach ($config as $key => $value) {
+            if (fnmatch($key, $env)) {
+                $this->addValues($value);
             }
         }
 
@@ -63,14 +57,12 @@ class Config
     {
         $keys = explode('.', $key);
 
-        // If we're going multidimenional...
         if (count($keys) > 1) {
             $key = $keys[0];
 
             $value = $this->createRecursiveArray($keys, $value)[$key];
         }
 
-        // And if we're going to merge arrays
         if (is_array($value) && isset($this->config->$key)) {
             $value = array_merge($this->config->$key, $value);
         }
