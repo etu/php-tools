@@ -10,7 +10,7 @@ class Config
 {
     private $config;
 
-    public function __construct($configFile, $visitDomain)
+    public function __construct($configFile, $visitDomain = '@')
     {
         $this->config = new \stdClass;
 
