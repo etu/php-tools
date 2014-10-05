@@ -2,49 +2,54 @@
 
 * Install with composer:
 composer.json
-: {
-:     ...
-:     "repositories": [
-:         {
-:             "url": "https://github.com/etu/ET.git",
-:             "type": "git"
-:         }
-:         ...
-:     ]
-:     ...
-:     "require": {
-:         "etu/ET": "dev-master"
-:         ...
-:     }
-:     ...
-: }
+#+NAME: composer.json
+#+BEGIN_SRC json
+{
+    "repositories": [
+        {
+            "url": "https://github.com/etu/ET.git",
+            "type": "git"
+        }
+    ]
+    "require": {
+        "etu/ET": "dev-master"
+    }
+}
+#+END_SRC
 
 * Example usage of Config and Db
+
 config.ini
-: [@]
-: db.dsn = 'sqlite::memory:'
-: db.username =
-: db.password =
-: 
-: [example.com]
-: db.username = live
-: 
-: [*.dev.example.com]
-: db.username = dev
+#+NAME: config.ini
+#+BEGIN_SRC ini
+[@]
+db.dsn = 'sqlite::memory:'
+db.username =
+db.password =
+
+[example.com]
+db.username = live
+
+[*.dev.example.com]
+db.username = dev
+#+END_SRC
 
 test.php
-: <?php
-: require('vendor/autoload.php');
-: 
-: use ET\Config;
-: use ET\Db;
-: 
-: // Second param, env, is optional. But matches titles in ini file to load config.
-: $config = new Config('config.ini', 'optional.example.com');
-: $db = new Db($config, new ET\Db\PdoBackend());
-: 
-: $db->query('CREATE TABLE names(id INTEGER PRIMARY KEY, name VARCHAR(10));');
-: $db->query('INSERT INTO names(id, name) VALUES (NULL, "Alice");');
-: $db->query('INSERT INTO names(id, name) VALUES (NULL, "Bob");');
-: 
-: print_r($db->query('SELECT * FROM names')->fetchAll());
+#+NAME: test.php
+#+BEGIN_SRC php
+<?php
+require('vendor/autoload.php');
+
+use ET\Config;
+use ET\Db;
+
+// Second param, env, is optional. But matches titles in ini file to load config.
+$config = new Config('config.ini', 'optional.example.com');
+$db = new Db($config, new ET\Db\PdoBackend());
+
+$db->query('CREATE TABLE names(id INTEGER PRIMARY KEY, name VARCHAR(10));');
+$db->query('INSERT INTO names(id, name) VALUES (NULL, "Alice");');
+$db->query('INSERT INTO names(id, name) VALUES (NULL, "Bob");');
+
+print_r($db->query('SELECT * FROM names')->fetchAll());
+#+END_SRC
