@@ -48,5 +48,10 @@ $db->query('CREATE TABLE names(id INTEGER PRIMARY KEY, name VARCHAR(10));');
 $db->query('INSERT INTO names(id, name) VALUES (NULL, "Alice");');
 $db->query('INSERT INTO names(id, name) VALUES (NULL, "Bob");');
 
-print_r($db->query('SELECT * FROM names WHERE name = :name', [':name' => 'Alice'])->fetchAll());
+print_r(
+    $db->query(
+        'SELECT * FROM names WHERE name = :name',
+        [':name' => 'Alice']
+    )->fetchAll()
+);
 #+END_SRC
