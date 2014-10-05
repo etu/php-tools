@@ -27,8 +27,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
     {
         $this->configMock = $this->getMockBuilder(Config::class)
             ->disableOriginalConstructor()->getMock();
-        $this->pdoBackendMock = $this->getMockBuilder(PdoBackend::class)
-            ->disableOriginalConstructor()->getMock();
+        $this->pdoBackendMock = $this->getMock(PdoBackend::class);
 
         $this->target = new Db($this->configMock, $this->pdoBackendMock);
     }
