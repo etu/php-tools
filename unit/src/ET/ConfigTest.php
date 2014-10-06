@@ -40,6 +40,62 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         new Config($this->configDir.'emptyconfig.ini', 'example.com');
     }
 
+
+
+    /**
+     * @test
+     */
+    public function shouldGetSimpleDefault()
+    {
+        // Fixture
+        $target = new Config($this->configDir.'simple.ini');
+
+        // Test
+        $actual = $target->theme;
+
+        // Assert
+        $this->assertSame('default', $actual);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldGetSimpleExactMatching()
+    {
+        // Fixture
+        $target = new Config($this->configDir.'simple.ini', 'example.com');
+
+        // Test
+        $actual = $target->theme;
+
+        // Assert
+        $this->assertSame('exact', $actual);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldGetSimpleFuzzyMatching()
+    {
+        // Fixture
+        $target = new Config($this->configDir.'simple.ini', 'fuzzy.example.com');
+
+        // Test
+        $actual = $target->theme;
+
+        // Assert
+        $this->assertSame('fuzzy', $actual);
+    }
+
+
+
+
+
+
+
+
+
+
     /**
      * @test
      */
