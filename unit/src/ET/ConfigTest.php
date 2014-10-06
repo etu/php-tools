@@ -13,11 +13,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /** @var Config */
     private $target;
 
+    private $configDir;
     private $goodConfig;
 
     public function setUp()
     {
-        $this->goodConfig = __DIR__.'/files/goodconfig.ini';
+        $this->configDir  = __DIR__.'/files/';
+        $this->goodConfig = $this->configDir.'goodconfig.ini';
     }
 
     /**
@@ -26,7 +28,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldFailOnNonExistingFile()
     {
-        new Config(__DIR__.'/files/noSuchConfig.ini', 'example.com');
+        new Config($this->configDir.'noSuchConfig.ini', 'example.com');
     }
 
     /**
@@ -35,7 +37,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldFailOnEmptyConfig()
     {
-        new Config(__DIR__.'/files/emptyconfig.ini', 'example.com');
+        new Config($this->configDir.'emptyconfig.ini', 'example.com');
     }
 
     /**
@@ -140,7 +142,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function shouldHandleArraysThatIsNotSetInGlobalConfig()
     {
         // Fixture
-        $target = new Config(__DIR__.'/files/nondefaultarray.ini', 'example.com');
+        $target = new Config($this->configDir.'nondefaultarray.ini', 'example.com');
 
         // Test
         $actual = $target->db->dsn;
@@ -155,7 +157,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function shouldHandleMultidimensionalKeys()
     {
         // Fixture
-        $target = new Config(__DIR__.'/files/deeperconfig.ini', 'example.com');
+        $target = new Config($this->configDir.'deeperconfig.ini', 'example.com');
 
         // Test
         $actual = $target->db->db1->dsn;
