@@ -19,7 +19,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->configDir  = __DIR__.'/files/';
-        $this->goodConfig = $this->configDir.'goodconfig.ini';
     }
 
     /**
