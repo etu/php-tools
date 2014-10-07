@@ -128,18 +128,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
-
-
-
-
     /**
      * @test
      */
-    public function shouldHandleArraysThatIsNotSetInGlobalConfig()
+    public function shouldGetNonDefaultObject()
     {
         // Fixture
-        $target = new Config($this->configDir.'nondefaultarray.ini', 'example.com');
+        $target = new Config($this->configDir.'nondefaultobject.ini', 'example.com');
 
         // Test
         $actual = $target->db->dsn;
