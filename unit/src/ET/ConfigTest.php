@@ -40,8 +40,6 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         new Config($this->configDir.'emptyconfig.ini', 'example.com');
     }
 
-
-
     /**
      * @test
      */
@@ -87,22 +85,13 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('fuzzy', $actual);
     }
 
-
-
-
-
-
-
-
-
-
     /**
      * @test
      */
-    public function shouldGetDefaultRecursive()
+    public function shouldGetRecursiveDefault()
     {
         // Fixture
-        $target = new Config($this->goodConfig, 'test.example.net');
+        $target = new Config($this->configDir.'recursive.ini');
 
         // Test
         $actual = $target->db;
@@ -111,8 +100,8 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             (object) [
                 'dsn' => 'sqlite::memory:',
-                'username' => 'username',
-                'password' => 'password',
+                'username' => 'default',
+                'password' => 'default'
             ],
             $actual
         );
@@ -121,25 +110,10 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldGetExactMatchNonRecursive()
+    public function shouldGetRecursiveMatching()
     {
         // Fixture
-        $target = new Config($this->goodConfig, 'example.com');
-
-        // Test
-        $actual = $target->theme;
-
-        // Assert
-        $this->assertSame('default', $actual);
-    }
-
-    /**
-     * @test
-     */
-    public function shouldGetExactMatchRecursive()
-    {
-        // Fixture
-        $target = new Config($this->goodConfig, 'example.com');
+        $target = new Config($this->configDir.'recursive.ini', 'example.com');
 
         // Test
         $actual = $target->db;
@@ -148,49 +122,17 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             (object) [
                 'dsn' => 'sqlite::memory:',
-                'username' => 'example',
-                'password' => 'password',
+                'username' => 'live',
+                'password' => 'live'
             ],
             $actual
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldGetFuzzyMatchNonRecursive()
-    {
-        // Fixture
-        $target = new Config($this->goodConfig, 'fuzzy.example.com');
 
-        // Test
-        $actual = $target->theme;
 
-        // Assert
-        $this->assertSame('fuzzy', $actual);
-    }
 
-    /**
-     * @test
-     */
-    public function shouldGetFuzzyMatchRecursive()
-    {
-        // Fixture
-        $target = new Config($this->goodConfig, 'fuzzy.example.com');
 
-        // Test
-        $actual = $target->db;
-
-        // Assert
-        $this->assertEquals(
-            (object) [
-                'dsn' => 'sqlite::memory:',
-                'username' => 'fuzzy',
-                'password' => 'password',
-            ],
-            $actual
-        );
-    }
 
     /**
      * @test
