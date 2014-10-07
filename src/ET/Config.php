@@ -64,7 +64,7 @@ class Config
         }
 
         if (is_array($value) && isset($this->config->$key)) {
-            $value = array_merge_recursive($this->config->$key, $value);
+            $value = array_replace_recursive($this->config->$key, $value);
         }
 
         $this->config->$key = $value;
