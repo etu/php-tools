@@ -152,9 +152,16 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
         $target = new Config($this->configDir.'deeperconfig.ini', 'example.com');
 
         // Test
-        $actual = $target->db->db1->dsn;
+        $actual = $target->names->list;
 
         // Assert
-        $this->assertSame('sqlite::memory:', $actual);
+        $this->assertEquals(
+            (object) [
+                'name1' => 'Alice',
+                'name2' => 'Bob',
+                'name3' => 'Claire'
+            ],
+            $actual
+        );
     }
 }
