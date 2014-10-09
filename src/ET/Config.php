@@ -38,8 +38,7 @@ class Config
             }
         }
 
-        // Convert all sub-arrays of config to objects
-        $this->config = json_decode(json_encode($this->config));
+        $this->config = $this->recursiveArrayToObject($this->config);
     }
 
     /**
@@ -105,5 +104,13 @@ class Config
         }
 
         return $array;
+    }
+
+    /**
+     * Converts a multidimensional array to objects
+     */
+    private function recursiveArrayToObject($array)
+    {
+        return json_decode(json_encode($array));
     }
 }
