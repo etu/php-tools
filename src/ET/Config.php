@@ -15,13 +15,13 @@ class Config
         $this->config = new \stdClass;
 
         if (!file_exists($configFile)) {
-            throw new ConfigException('Configruation file not found: '.$configFile);
+            throw new ConfigException('Configuration file not found: '.$configFile);
         }
 
         $config = parse_ini_file($configFile, true);
 
         if (!$config || !is_array($config['@'])) {
-            throw new ConfigException('Configruation file failed to parse: '.$configFile);
+            throw new ConfigException('Configuration file failed to parse: '.$configFile);
         }
 
         $this->addValues($config['@']);
