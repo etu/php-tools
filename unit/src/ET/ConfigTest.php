@@ -175,7 +175,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             $this->configDir.'overwriting1.ini',
             $this->configDir.'overwriting2.ini'
         ];
-        $target = new Config($configs, 'example.com');
+        $target = new Config($configs);
 
         // Test
         $actual = $target->theme;
