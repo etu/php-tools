@@ -10,31 +10,37 @@ class Config
 {
     private $config;
 
-    public function __construct($configFile, $env = '@')
+    public function __construct($configFiles, $env = '@')
     {
         $this->config = new \stdClass;
 
-        if (!file_exists($configFile)) {
-            throw new ConfigException('Configuration file not found: '.$configFile);
+        if (!is_array($configFiles)) {
+            $configFiles = [ $configFiles ];
         }
 
-        $config = parse_ini_file($configFile, true);
+        foreach ($configFiles as $configFile) {
+            if (!file_exists($configFile)) {
+                throw new ConfigException('Configuration file not found: '.$configFile);
+            }
 
-        if (!$config || !is_array($config['@'])) {
-            throw new ConfigException('Configuration file failed to parse: '.$configFile);
-        }
+            $config = parse_ini_file($configFile, true);
 
-        $this->addValues($config['@']);
+            if (!$config || !is_array($config['@'])) {
+                throw new ConfigException('Configuration file failed to parse: '.$configFile);
+            }
 
-        if (isset($config[$env])) {
-            $config = [
-                $env => $config[$env]
-            ];
-        }
+            $this->addValues($config['@']);
 
-        foreach ($config as $key => $value) {
-            if (fnmatch($key, $env)) {
-                $this->addValues($value);
+            if (isset($config[$env])) {
+                $config = [
+                    $env => $config[$env]
+                ];
+            }
+
+            foreach ($config as $key => $value) {
+                if (fnmatch($key, $env)) {
+                    $this->addValues($value);
+                }
             }
         }
 

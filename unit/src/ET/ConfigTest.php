@@ -164,4 +164,23 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
             $actual
         );
     }
+
+    /**
+     * @test
+     */
+    public function shouldHandleMultipleFiles()
+    {
+        // Fixture
+        $configs = [
+            $this->configDir.'overwriting1.ini',
+            $this->configDir.'overwriting2.ini'
+        ];
+        $target = new Config($configs, 'example.com');
+
+        // Test
+        $actual = $target->theme;
+
+        // Assert
+        $this->assertSame('file2', $actual);
+    }
 }
