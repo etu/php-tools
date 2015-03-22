@@ -1,0 +1,13 @@
+{
+    "@": {
+        "match": "default"
+    },
+
+    "example.com": {
+        "match": "exact"
+    },
+
+    "*.example.com": {
+        "match": "fuzzy"
+    }
+}

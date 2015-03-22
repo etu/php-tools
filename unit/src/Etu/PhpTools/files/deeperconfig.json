@@ -1,0 +1,11 @@
+{
+    "@": {
+        "names": {
+            "list": {
+                "name1": "Alice",
+                "name2": "Bob",
+                "name3": "Claire"
+            }
+        }
+    }
+}

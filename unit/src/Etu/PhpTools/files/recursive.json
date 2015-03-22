@@ -1,0 +1,16 @@
+{
+    "@": {
+        "db": {
+            "dsn": "sqlite::memory:",
+            "username": "default",
+            "password": "default"
+        }
+    },
+
+    "example.com": {
+        "db": {
+            "username": "live",
+            "password": "live"
+        }
+    }
+}
