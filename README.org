@@ -41,7 +41,7 @@ test.php
 require('vendor/autoload.php');
 
 // Second param, env, is optional. But matches titles in ini file to load config.
-$config = new Etu\PhpTools\Config('config.ini', 'optional.example.com');
+$config = new Etu\PhpTools\IniConfig('config.ini', 'optional.example.com');
 $db = new Etu\PhpTools\Db($config, new Etu\PhpTools\Db\PdoBackend());
 
 $db->query('CREATE TABLE names(id INTEGER PRIMARY KEY, name VARCHAR(10));');
