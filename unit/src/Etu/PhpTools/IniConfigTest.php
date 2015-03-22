@@ -6,9 +6,9 @@
  */
 namespace Tests\Etu\PhpTools;
 
-use \Etu\PhpTools\Config;
+use \Etu\PhpTools\IniConfig as Config;
 
-class ConfigTest extends \PHPUnit_Framework_TestCase
+class IniConfigTest extends \PHPUnit_Framework_TestCase
 {
     /** @var Config */
     private $target;

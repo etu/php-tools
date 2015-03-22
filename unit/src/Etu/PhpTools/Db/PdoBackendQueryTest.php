@@ -7,7 +7,7 @@
 namespace Tests\Etu\PhpTools\Db;
 
 use \Etu\PhpTools\Db\PdoBackend;
-use \Etu\PhpTools\Config;
+use \Etu\PhpTools\IniConfig as Config;
 
 class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
 {
