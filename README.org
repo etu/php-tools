@@ -5,14 +5,8 @@ composer.json
 #+NAME: composer.json
 #+BEGIN_SRC json
 {
-    "repositories": [
-        {
-            "url": "https://github.com/etu/php-tools.git",
-            "type": "git"
-        }
-    ],
     "require": {
-        "etu/ET": "dev-master"
+        "etu/php-tools": "dev-master"
     }
 }
 #+END_SRC
