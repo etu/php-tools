@@ -8,4 +8,5 @@ namespace Etu\PhpTools;
 
 interface Config
 {
+    public function __get($key);
 }
