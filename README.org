@@ -1,4 +1,4 @@
-[[https://travis-ci.org/etu/ET][https://travis-ci.org/etu/ET.svg?branch=master]]
+[[https://travis-ci.org/etu/php-tools][https://travis-ci.org/etu/php-tools.svg?branch=master]]
 
 * Install with composer:
 composer.json
