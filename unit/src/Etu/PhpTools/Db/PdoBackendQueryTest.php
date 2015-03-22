@@ -4,10 +4,10 @@
  * @author Elis Axelsson <http://elis.nu/>
  * @since 2014
  */
-namespace Tests\ET\Db;
+namespace Tests\Etu\PhpTools\Db;
 
-use \ET\Db\PdoBackend;
-use \ET\Config;
+use \Etu\PhpTools\Db\PdoBackend;
+use \Etu\PhpTools\Config;
 
 class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
 {
@@ -51,7 +51,7 @@ class PdoBackendQueryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException ET\Db\DbException
+     * @expectedException Etu\PhpTools\Db\DbException
      */
     public function shouldFailQuery()
     {

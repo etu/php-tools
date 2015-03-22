@@ -4,7 +4,7 @@
  * @author Elis Axelsson <http://elis.nu/>
  * @since 2014
  */
-namespace ET\Db;
+namespace Etu\PhpTools\Db;
 
 class Raw
 {

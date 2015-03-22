@@ -4,9 +4,9 @@
  * @author Elis Axelsson <http://elis.nu/>
  * @since 2014
  */
-namespace Tests\ET\Db;
+namespace Tests\Etu\PhpTools\Db;
 
-use \ET\Db\Raw;
+use \Etu\PhpTools\Db\Raw;
 
 class RawTest extends \PHPUnit_Framework_TestCase
 {

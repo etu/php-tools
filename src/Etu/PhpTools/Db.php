@@ -4,10 +4,10 @@
  * @author Elis Axelsson <http://elis.nu/>
  * @since 2014
  */
-namespace ET;
+namespace Etu\PhpTools;
 
-use \ET\Db\BackendInterface as Backend;
-use \ET\Db\Raw as DbRaw;
+use \Etu\PhpTools\Db\BackendInterface as Backend;
+use \Etu\PhpTools\Db\Raw as DbRaw;
 
 class Db
 {
@@ -35,7 +35,7 @@ class Db
         foreach ($params as $key => $value) {
             switch (gettype($value)) {
                 case 'object':
-                    if (get_class($value) == 'ET\Db\Raw') {
+                    if (get_class($value) == 'Etu\PhpTools\Db\Raw') {
                         $fixedValue = (string) $value;
                     }
                     break;
@@ -52,7 +52,7 @@ class Db
         // Run Query
         try {
             $this->backend->query($sql);
-        } catch (\ET\Db\DbException $e) {
+        } catch (\Etu\PhpTools\Db\DbException $e) {
             throw $e;
         }
 

@@ -4,8 +4,8 @@
  * @author Elis Axelsson <http://elis.nu/>
  * @since 2014
  */
-namespace ET;
+namespace Etu\PhpTools\Db;
 
-class ConfigException extends \Exception
+class DbException extends \Exception
 {
 }

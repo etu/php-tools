@@ -24,13 +24,13 @@
 
     "autoload": {
         "psr-4": {
-            "ET\\": "src/ET"
+            "Etu\\PhpTools\\": "src/Etu/PhpTools"
         }
     },
 
     "autoload-dev": {
         "psr-4": {
-            "Tests\\ET\\": "unit/src/ET"
+            "Tests\\Etu\\PhpTools\\": "unit/src/Etu/PhpTools"
         }
     }
 }

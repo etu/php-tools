@@ -4,9 +4,9 @@
  * @author Elis Axelsson <http://elis.nu/>
  * @since 2014
  */
-namespace ET\Db;
+namespace Etu\PhpTools\Db;
 
-use \ET\Config;
+use \Etu\PhpTools\Config;
 
 interface BackendInterface
 {

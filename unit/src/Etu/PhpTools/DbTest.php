@@ -4,13 +4,13 @@
  * @author Elis Axelsson <http://elis.nu/>
  * @since 2014
  */
-namespace Tests\ET;
+namespace Tests\Etu\PhpTools;
 
-use \ET\Db;
-use \ET\Config;
-use \ET\Db\PdoBackend;
-use \ET\Db\Raw as DbRaw;
-use \ET\Db\DbException;
+use \Etu\PhpTools\Db;
+use \Etu\PhpTools\Config;
+use \Etu\PhpTools\Db\PdoBackend;
+use \Etu\PhpTools\Db\Raw as DbRaw;
+use \Etu\PhpTools\Db\DbException;
 
 class DbTest extends \PHPUnit_Framework_TestCase
 {
@@ -73,7 +73,7 @@ class DbTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException ET\Db\DbException
+     * @expectedException Etu\PhpTools\Db\DbException
      */
     public function shouldFailQuery()
     {

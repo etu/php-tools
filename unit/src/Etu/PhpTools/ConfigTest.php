@@ -4,9 +4,9 @@
  * @author Elis Axelsson <http://elis.nu/>
  * @since 2014
  */
-namespace Tests\ET;
+namespace Tests\Etu\PhpTools;
 
-use \ET\Config;
+use \Etu\PhpTools\Config;
 
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,7 +23,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException ET\ConfigException
+     * @expectedException Etu\PhpTools\ConfigException
      */
     public function shouldFailOnNonExistingFile()
     {
@@ -32,7 +32,7 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException ET\ConfigException
+     * @expectedException Etu\PhpTools\ConfigException
      */
     public function shouldFailOnEmptyConfig()
     {
