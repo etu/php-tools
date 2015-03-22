@@ -1,5 +1,5 @@
 {
-    "name": "etu/ET",
+    "name": "etu/php-tools",
     "description": "Some tools for personal projects",
     "keywords": ["Database", "Config"],
     "license": "ISC",
