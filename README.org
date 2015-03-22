@@ -28,14 +28,49 @@ db.username = live
 db.username = dev
 #+END_SRC
 
+or
+
+config.json
+#+NAME: config.json
+#+BEGIN_SRC json
+{
+    "@": {
+        "db": {
+            "dsn": "sqlite::memory:",
+            "username": "",
+            "password": ""
+        }
+    },
+
+    "example.com": {
+        "db": {
+            "username": "live"
+        }
+    },
+
+    "*.dev.example.com": {
+        "db": {
+            "username": "dev"
+        }
+    }
+}
+#+END_SRC
+
 test.php
 #+NAME: test.php
 #+BEGIN_SRC php
 <?php
 require('vendor/autoload.php');
 
-// Second param, env, is optional. But matches titles in ini file to load config.
+// If using INI-file:
+// (Optional) Second parameter matches title in ini-file
 $config = new Etu\PhpTools\IniConfig('config.ini', 'optional.example.com');
+
+// If using JSON-file
+// (Optional) Second parameter matches first level of objects in json-file
+$config = new Etu\PhpTools\JsonConfig('config.json', 'optional.example.com');
+
+// Then load Db
 $db = new Etu\PhpTools\Db($config, new Etu\PhpTools\Db\PdoBackend());
 
 $db->query('CREATE TABLE names(id INTEGER PRIMARY KEY, name VARCHAR(10));');
