@@ -46,11 +46,21 @@ class JsonConfig implements Config
         }
     }
 
+    /**
+     * Get values from the configruation.
+     */
     public function __get($key)
     {
         return $this->config->$key;
     }
 
+    /**
+     * Add a single value to the configruation, might be an array.
+     *
+     * @param $key string Key to put $value into
+     * @param $value (string|object) Value to put in
+     * @param $config Reference to object to put the above into
+     */
     public function addValue($key, $value, &$config)
     {
         switch (true) {
