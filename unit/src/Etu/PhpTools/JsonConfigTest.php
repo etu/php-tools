@@ -158,4 +158,19 @@ class JsonConfigTest extends \PHPUnit_Framework_TestCase
             $actual
         );
     }
+
+    /**
+     * @test
+     */
+    public function shouldLoadModules()
+    {
+        // Fixture
+        $target = new Config($this->configDir.'modulesconfig.json');
+
+        // Test
+        $actual = $target->db->user;
+
+        // Assert
+        $this->assertSame('module', $actual);
+    }
 }

@@ -9,6 +9,7 @@ namespace Etu\PhpTools;
 class JsonConfig implements Config
 {
     private $config;
+    private $modules = null;
 
     public function __construct($configFile, $env = '@')
     {
@@ -30,6 +31,11 @@ class JsonConfig implements Config
             throw new ConfigException('Missing "@" section in parsed config: '.$configFile);
         }
 
+        // If modules is defined, copy to own variable
+        if (isset($config->__modules__)) {
+            $this->modules = $config->__modules__;
+        }
+
         // Att default values to config
         $this->addValue('config', $config->{'@'}, $this);
 
@@ -44,6 +50,8 @@ class JsonConfig implements Config
                 $this->addValue('config', $value, $this);
             }
         }
+
+        $this->loadConfigModules();
     }
 
     /**
@@ -76,6 +84,18 @@ class JsonConfig implements Config
 
             default:
                 $config->$key = $value;
+        }
+    }
+
+    /**
+     * Load Modules
+     */
+    private function loadConfigModules()
+    {
+        if (isset($this->config->__loaded_modules__)) {
+            foreach ($this->config->__loaded_modules__ as $module) {
+                $this->addValue('config', $this->modules->$module, $this);
+            }
         }
     }
 }

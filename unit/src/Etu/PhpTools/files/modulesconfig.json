@@ -1,0 +1,15 @@
+{
+    "__modules__": {
+        "my-db-module": {
+            "db": {
+                "user": "module"
+            }
+        }
+    },
+
+    "@": {
+        "__loaded_modules__": [
+            "my-db-module"
+        ]
+    }
+}
