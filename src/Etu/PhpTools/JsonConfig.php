@@ -101,6 +101,8 @@ class JsonConfig implements Config
             foreach ($this->tmpConfig->__loaded_modules__ as $module) {
                 $this->addValue('config', $this->modules->$module, $this);
             }
+
+            unset($this->tmpConfig->__loaded_modules__);
         }
     }
 }
