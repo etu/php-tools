@@ -123,10 +123,15 @@ Example usage of modules and overwriting including defaults:
 #+END_SRC
 
 This will result in a config that looks like this (if loading the environment example.com):
-:  (object) [
-:     'default' => 'values',
-:     'db' => (object) [
-:         'username' => 'example.com',
-:         'password' => 'default
-:     ]
-:  ]
+#+BEGIN_SRC
+    [config:Etu\PhpTools\JsonConfig:private] => stdClass Object
+        (
+            [db] => stdClass Object
+                (
+                    [username] => example.com
+                    [password] => default
+                )
+
+            [default] => values
+        )
+#+END_SRC
