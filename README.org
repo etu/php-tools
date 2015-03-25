@@ -84,3 +84,49 @@ print_r(
     )->fetchAll()
 );
 #+END_SRC
+
+* Advanced features of JsonConfig
+  - Modules
+  - Default settings
+  - Environments
+  - Overwrites of default settings depending on environment
+  - Overwrites of modules
+
+** Modules
+Example usage of modules and overwriting including defaults:
+#+NAME: modules.json
+#+BEGIN_SRC json
+{
+    "__modules__": {
+        "my-db-module": {
+            "db": {
+                "username": "default",
+                "password": "default"
+            }
+        }
+    },
+
+    "@": {
+        "default": "values"
+    },
+
+    "example.com": {
+        "__loaded_modules__": [
+            "my-db-module"
+        ],
+
+        "db": {
+            "username": "example.com"
+        }
+    }
+}
+#+END_SRC
+
+This will result in a config that looks like this (if loading the environment example.com):
+:  (object) [
+:     'default' => 'values',
+:     'db' => (object) [
+:         'username' => 'example.com',
+:         'password' => 'default
+:     ]
+:  ]
