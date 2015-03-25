@@ -2,7 +2,8 @@
     "__modules__": {
         "my-db-module": {
             "db": {
-                "user": "module"
+                "user": "module",
+                "pass": "module"
             }
         }
     },
@@ -10,6 +11,9 @@
     "@": {
         "__loaded_modules__": [
             "my-db-module"
-        ]
+        ],
+        "db": {
+            "pass": "config"
+        }
     }
 }

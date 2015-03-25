@@ -9,6 +9,7 @@ namespace Etu\PhpTools;
 class JsonConfig implements Config
 {
     private $config;
+    private $tmpConfig;
     private $modules = null;
 
     public function __construct($configFile, $env = '@')
@@ -37,7 +38,7 @@ class JsonConfig implements Config
         }
 
         // Att default values to config
-        $this->addValue('config', $config->{'@'}, $this);
+        $this->addValue('tmpConfig', $config->{'@'}, $this);
 
         if (isset($config->$env)) {
             $config = [
@@ -47,11 +48,15 @@ class JsonConfig implements Config
 
         foreach ($config as $key => $value) {
             if (fnmatch($key, $env)) {
-                $this->addValue('config', $value, $this);
+                $this->addValue('tmpConfig', $value, $this);
             }
         }
 
         $this->loadConfigModules();
+
+        $this->addValue('config', $this->tmpConfig, $this);
+
+        unset($this->tmpConfig);
     }
 
     /**
@@ -92,8 +97,8 @@ class JsonConfig implements Config
      */
     private function loadConfigModules()
     {
-        if (isset($this->config->__loaded_modules__)) {
-            foreach ($this->config->__loaded_modules__ as $module) {
+        if (isset($this->tmpConfig->__loaded_modules__)) {
+            foreach ($this->tmpConfig->__loaded_modules__ as $module) {
                 $this->addValue('config', $this->modules->$module, $this);
             }
         }

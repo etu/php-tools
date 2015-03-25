@@ -168,9 +168,11 @@ class JsonConfigTest extends \PHPUnit_Framework_TestCase
         $target = new Config($this->configDir.'modulesconfig.json');
 
         // Test
-        $actual = $target->db->user;
+        $actual1 = $target->db->user;
+        $actual2 = $target->db->pass;
 
         // Assert
-        $this->assertSame('module', $actual);
+        $this->assertSame('module', $actual1);
+        $this->assertSame('config', $actual2);
     }
 }
